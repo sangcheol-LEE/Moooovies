@@ -18,7 +18,7 @@ mongoose.connect("mongodb+srv://zlrz002:tkdas6708%40@boilerian.jklar1o.mongodb.n
 }).then(() => console.log("monggoDB Connected...."))
   .catch(err => console.log(err))
 
-app.get("/", (request, response) => response.send("Hello World How are you ~?"))
+app.get("/", (request, response) => response.send("Hello World How are you ~? 내 이름은 상철이야"))
 
 //회원가입 라우터 기능 !
 app.post("/register", (request, response) => {
