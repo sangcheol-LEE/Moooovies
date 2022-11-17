@@ -7,13 +7,15 @@ const port = 3000 // 포트는 내 마음 !
 const {User} = require("./models/User");
 const bodyParser = require("body-parser");
 
+const config = require("./config/key");
+
 app.use(bodyParser.urlencoded({extended: true})); // 바디파서에 옵션을 주기 위해 사용합니다.
 // => 위 코드는 application/x-www-form-urlencoded 의 형식의 데이터를 읽어주고
 app.use(bodyParser.json());
 // => 위 코드는 application/json 형식의 데이터를 읽는다.
 
 const mongoose = require("mongoose")
-mongoose.connect("mongodb+srv://zlrz002:tkdas6708%40@boilerian.jklar1o.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect(config.mongoURI, {
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => console.log("monggoDB Connected...."))
   .catch(err => console.log(err))
