@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: true})); // 바디파서에 옵션을 �
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 mongoose.connect(config.mongoURI, {
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => console.log("monggoDB Connected...."))
@@ -81,6 +81,18 @@ app.get("/api/users/auth", auth ,(request, response) => {
     role: request.user.role,
     image : request.user.image
   })
+})
+
+app.get("/api/users/logout", auth, (request, response) => {
+  User.findOneAndUpdate({_id: request.user._id},
+    {token : ""}
+    , (err, user) => {
+      if(err) return response.json({ success: false, err});
+      return response.status(200).send({
+        success: true,
+        message:"로그아웃이 완료되었습니다."
+      })
+    })
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
