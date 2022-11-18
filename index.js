@@ -1,13 +1,14 @@
-// 백엔드 시작점 !
-// express js 다운받기
-
+// 백엔드 시작점 ! express js 다운받기
 const express = require('express'); // 익스프레스 모듈을 가져온다.
 const app = express() // 새로운 익스프레스 앱을 만들고 !
 const port = 3000 // 포트는 내 마음 !
-const {User} = require("./models/User");
+
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+
 const config = require("./config/key");
+const {auth} = require("./middleware/auth")
+const {User} = require("./models/User");
 
 // 아래 코드는 application/x-www-form-urlencoded 의 형식의 데이터를 읽어주고
 app.use(bodyParser.urlencoded({extended: true})); // 바디파서에 옵션을 주기 위해 사용합니다.
@@ -24,7 +25,7 @@ mongoose.connect(config.mongoURI, {
 app.get("/", (request, response) => response.send("Hello World How are you ~? 내 이름은 상철이야"))
 
 //회원가입 라우터 기능 !
-app.post("/register", (request, response) => {
+app.post("/api/users/register", (request, response) => {
 
   // 회원가입시 필요한 정보들을 클라이언트에서 가져오면
   // 그것들을 데이터베이스에 넣어준다.
@@ -42,7 +43,7 @@ app.post("/register", (request, response) => {
 })
 
 // 로그인 기능 !
-app.post("/login", (request, response) => {
+app.post("/api/users/login", (request, response) => {
   // 1.요청된 이메일을 데이터 베이스에서 있는지 찾는다.
   User.findOne({ email: request.body.email }, (err, user) => {
     if(!user) {
@@ -67,6 +68,20 @@ app.post("/login", (request, response) => {
   })
 })
 
+
+app.get("/api/users/auth", auth ,(request, response) => {
+  // 여기까지 미들웨어를 통과해 왔다는 얘기는 Authentication이 true라는 말.
+  response.status(200).json({
+    _id: request.user._id,
+    isAdmin: request.user.role === 0 ? false : true,
+    isAuth :true,
+    email: request.user.email,
+    name: request.user.name,
+    lastname : request.user.lastname,
+    role: request.user.role,
+    image : request.user.image
+  })
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
