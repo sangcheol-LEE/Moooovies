@@ -6,13 +6,14 @@ const app = express() // 새로운 익스프레스 앱을 만들고 !
 const port = 3000 // 포트는 내 마음 !
 const {User} = require("./models/User");
 const bodyParser = require("body-parser");
-
+const cookieParser = require("cookie-parser")
 const config = require("./config/key");
 
+// 아래 코드는 application/x-www-form-urlencoded 의 형식의 데이터를 읽어주고
 app.use(bodyParser.urlencoded({extended: true})); // 바디파서에 옵션을 주기 위해 사용합니다.
-// => 위 코드는 application/x-www-form-urlencoded 의 형식의 데이터를 읽어주고
+// 아래 코드는 application/json 형식의 데이터를 읽는다.
 app.use(bodyParser.json());
-// => 위 코드는 application/json 형식의 데이터를 읽는다.
+app.use(cookieParser());
 
 const mongoose = require("mongoose")
 mongoose.connect(config.mongoURI, {
@@ -36,6 +37,32 @@ app.post("/register", (request, response) => {
     if(err) return response.json({ success: false, err })
     return response.status(200).json({
       success: true
+    })
+  })
+})
+
+// 로그인 기능 !
+app.post("/login", (request, response) => {
+  // 1.요청된 이메일을 데이터 베이스에서 있는지 찾는다.
+  User.findOne({ email: request.body.email }, (err, user) => {
+    if(!user) {
+      return response.json({
+        loginSuccess : false,
+        message : "등록된 이메일이 존재하지 않습니다. 회원가입을 해주세요 !"
+      })
+    }
+  // 2.요청된 이메일이 데이터베이스에 있다면, 비밀번호가 같은지 확인
+    user.comparePassword(request.body.password, (err, isMatch) => {
+      if(!isMatch) return response.json({loginSuccess : false, message: "비밀번호가 틀렸다눙 ~"})
+      // 3.비밀번호까지 같다면 토큰을 생성
+      user.getToken((err, user) => {
+        if(err) return response.status(400).send(err);
+        // 토큰을 저장한다 어디에 ? 쿠키, 로컬스토리지, 세션스토리지 ...
+        // 쿠키에 보관하고 , 라이브러리를 다운받아야한다.
+        response.cookie("x_auth",user.token)
+        .status(200)
+        .json({ loginSuccess: true, userId: user._id })
+      })
     })
   })
 })
