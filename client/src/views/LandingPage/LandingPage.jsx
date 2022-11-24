@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
 import axios from "axios";
-
+import Base from '../../components/Styles/Base';
 
 const LandingPage = () => {
 
@@ -11,9 +11,9 @@ const LandingPage = () => {
   },[])
 
   return (
-    <div>
-      <h1>LandingPage</h1>
-    </div>
+    <Base>
+      <h1>시작 페이지</h1>
+    </Base>
   );
 };
 
