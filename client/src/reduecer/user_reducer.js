@@ -1,4 +1,4 @@
-import { USER_LOGIN } from "../action/user_type"
+import { USER_LOGIN, USER_REGISTER } from "../action/user_type"
 
 const initialState = {
   email : "",
@@ -12,6 +12,16 @@ const userReducer = (state = initialState, action) => {
         ...state,
         email: action.payload.email,
         password: action.payload.password
+      }
+
+    case USER_REGISTER :
+      return {
+        ...state,
+        name : action.payload.name,
+        email: action.payload.email,
+        password: action.payload.password,
+        password_confirm : action.payload.password_confirm
+
       }
 
     default :

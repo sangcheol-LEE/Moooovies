@@ -92,8 +92,7 @@ app.get("/api/users/logout", auth, (request, response) => {
     , (err, user) => {
       if(err) return response.json({ success: false, err});
       return response.status(200).send({
-        success: true,
-        message:"로그아웃이 완료되었습니다."
+        success: true
       })
     })
 })
