@@ -1,6 +1,9 @@
 import React ,{useState}from 'react';
 import styled from 'styled-components';
 import Base from '../../components/Styles/Base';
+import {useDispatch} from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { userLogin } from '../../action/user_action';
 
 const Form = styled("form")`
 `;
@@ -16,6 +19,8 @@ const Button = styled("button")`
 `;
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [info, setInfo] = useState({
     email : "",
     password : ""
@@ -23,14 +28,25 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
       e.preventDefault();
 
-      // 리덕스 코드 넣고
+      let body = {
+        email : info.email,
+        password : info.password
+      }
 
-      const prev = {
+      dispatch(userLogin(body))
+        .then(response =>  {
+          if(response.payload.loginSuccess) {
+            navigate("/")
+          } else {
+            alert("Login Error")
+          }
+        })
+
+      setInfo({
         ...info,
         email : "",
-        password : "",
-      }
-      setInfo(prev)
+        password : ""
+      })
   }
 
   const handleChange = (e) => {
