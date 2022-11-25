@@ -5,18 +5,38 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { userRegister } from '../../action/user_action';
 
+const Title = styled("h1")`
+  color: green;
+  font-size: 50px;
+  font-weight:bold;
+`;
+
 const Form = styled("form")`
+  max-width:100%;
+  display:flex;
+  flex-direction:column;
 `;
 
-  const Input = styled("input")`
 
+const SubTitle = styled("h4")`
+  margin-bottom: 10px;
+  color: green;
 `;
-const ButtonContainer = styled("div")`
-  margin: 10px 0 0 0;
+
+const Input = styled("input")`
+  padding-left : 5px;
+  height: 25px;
 `;
+
 const Button = styled("button")`
   width: 100%;
+  margin-top : 10px;
+  padding : 10px 100px;
+  border : none;
+  background-color :green;
+  color : #fff;
 `;
+
 
 
 
@@ -79,25 +99,23 @@ const RegisterPage = () => {
 
   return (
     <Base>
-      <h1>회원가입</h1>
+      <Title>회원가입</Title>
       <Form onSubmit={handleSubmit}>
 
-        <div>이름</div>
+        <SubTitle>이름</SubTitle>
         <Input type="text" name={"name"} value={info.name} onChange={handleChange}/>
 
-        <div>E-mail</div>
+        <SubTitle>E-mail</SubTitle>
         <Input type="email" name={"email"} value={info.email} onChange={handleChange}/>
 
-        <div>Password</div>
+        <SubTitle>Password</SubTitle>
         <Input type="password" name={"password"} value={info.password} onChange={handleChange}/>
 
-        <div>password confirm</div>
+        <SubTitle>password confirm</SubTitle>
         <Input type="password" name={"password_confirm"} value={info.password_confirm} onChange={handleChange}/>
 
-        <ButtonContainer>
-          <Button>Login</Button>
-        </ButtonContainer>
-
+          <Button>회원가입</Button>
+          <Button onClick={() => navigate("/login")}>뒤로가기</Button>
       </Form>
     </Base>
   );

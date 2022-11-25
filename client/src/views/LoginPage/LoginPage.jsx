@@ -5,18 +5,41 @@ import {useDispatch} from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../../action/user_action';
 
+
+
+const Title = styled("h1")`
+  color: green;
+  font-size: 50px;
+  font-weight:bold;
+`;
+
 const Form = styled("form")`
+  max-width:100%;
+  display:flex;
+  flex-direction:column;
+`;
+
+
+const SubTitle = styled("h4")`
+  margin-bottom: 10px;
+  color: green;
 `;
 
 const Input = styled("input")`
+  padding-left : 5px;
+  height: 25px;
+`;
 
-`;
-const ButtonContainer = styled("div")`
-margin: 10px 0 0 0;
-`;
 const Button = styled("button")`
   width: 100%;
+  margin-top : 10px;
+  padding : 10px 100px;
+  border : none;
+  background-color :green;
+  color : #fff;
 `;
+
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -58,20 +81,19 @@ const LoginPage = () => {
   }
 
   return (
-    <Base>
-      <h1>Hello</h1>
-      <Form onSubmit={handleSubmit}>
-        <div>E-mail</div>
-        <Input type="email" name={"email"} value={info.email} onChange={handleChange}/>
+      <Base>
+        <Title>IAN</Title>
+        <Form onSubmit={handleSubmit}>
+          <SubTitle>아이디</SubTitle>
+          <Input type="email" name={"email"} value={info.email} onChange={handleChange}/>
 
-        <div>Password</div>
-        <Input type="password" name={"password"} value={info.password} onChange={handleChange}/>
+          <SubTitle>비밀번호</SubTitle>
+          <Input type="password" name={"password"} value={info.password} onChange={handleChange}/>
 
-        <ButtonContainer>
-          <Button>Login</Button>
-        </ButtonContainer>
-      </Form>
-    </Base>
+            <Button>로그인</Button>
+            <Button onClick={() => navigate("/register")}>회원가입</Button>
+        </Form>
+      </Base>
   );
 };
 

@@ -8,9 +8,9 @@ import Auth from "./hoc/auth"
 function App() {
   return (
       <Routes>
-        <Route exact path="/" element={Auth(<LandingPage />, null)}/>
+        <Route exact path="/" element={Auth(<LandingPage />, true)}/>
         <Route exact path="/login" element={Auth(<LoginPage />, false)}/>
-        <Route exact path="/register" element={Auth(<RegisterPage />, true)}/>
+        <Route exact path="/register" element={Auth(<RegisterPage />, null)}/>
       </Routes>
   );
 }
