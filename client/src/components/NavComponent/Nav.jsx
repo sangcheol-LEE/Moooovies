@@ -26,11 +26,16 @@ const LogoContainer = styled("div")`
 const LinkBox  = styled("div")`
   display:flex;
 
-  div {
+  .home_button {
     margin-right:20px;
   }
 `;
 
+const Button = styled("button")`
+  border: none;
+  background-color: transparent;
+  color : rgba(0,0,0,0.3);
+`;
 
 const ButtonBox = styled("div")`
   display:flex;
@@ -40,27 +45,26 @@ const ButtonBox = styled("div")`
   .Signin{
     margin-right:20px;
   }
-
 `;
 
-const Nav = () => {
+const Nav = ({handleLogout}) => {
   return (
     <>
       <Container>
         <LogoBox>
           <LogoContainer>
-            <h3>logo</h3>
+            <h3>IanFlix</h3>
           </LogoContainer>
 
           <LinkBox>
-            <div>Home</div>
-            <div>Blogs</div>
+            <Button className="home_button">Home</Button>
+            <Button>Blogs</Button>
           </LinkBox>
         </LogoBox>
 
         <ButtonBox>
-          <div className="Signin">Signin</div>
-          <div>Signup</div>
+          <Button className="Signin">Signin</Button>
+          <Button>Signup</Button>
         </ButtonBox>
       </Container>
     </>
