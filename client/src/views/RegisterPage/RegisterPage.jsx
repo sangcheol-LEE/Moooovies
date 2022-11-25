@@ -3,7 +3,7 @@ import Base from '../../components/Styles/Base';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { userRegister } from '../../action/user_action';
+import { userRegister } from '../../action/user/user_action';
 
 const Title = styled("h1")`
   color: green;

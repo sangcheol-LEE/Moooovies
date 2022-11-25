@@ -7,7 +7,7 @@
     "start": "node index.js",
     "on": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "concurrently \"npm run on\" \"cd ../client && npm run start\""
+    "dev": "concurrently \"npm run on\" \"cd ../client && npm run start\""
   },
   "author": "Ian lee",
   "license": "ISC",

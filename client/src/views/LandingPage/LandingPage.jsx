@@ -1,21 +1,20 @@
-import React from 'react';
+import React,{useState, useEffect, useMemo} from 'react';
 import axios from "axios";
-import Base from '../../components/Styles/Base';
+import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import Nav from '../../components/Styles/Nav';
 import styled from 'styled-components';
-import Ian from "../../asset/image/ian.png";
+import Nav from '../../components/NavComponent/Nav';
+import { getPopularMovie } from '../../action/movie/movie_action';
+import MainImage from '../../components/MainComponent/MainImage';
 
-
-const Image = styled("img")`
-  width:100%;
-`;
-
-const ImageContainer = styled("div")`
-  width:100%;
-`;
 const LandingPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPopularMovie())
+  },[])
+
 
   const handleLogout = () => {
     axios.get("/api/users/logout")
@@ -30,12 +29,10 @@ const LandingPage = () => {
 
   return (
     <>
-      <Nav handleClick={handleLogout}/>
-      <Base>
-        <ImageContainer>
-          <Image src={Ian} alt="title"/>
-        </ImageContainer>
-      </Base>
+      <Nav/>
+      <div>
+        <MainImage />
+      </div>
     </>
   );
 };

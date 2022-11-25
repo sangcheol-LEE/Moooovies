@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Base from '../../components/Styles/Base';
 import {useDispatch} from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { userLogin } from '../../action/user_action';
+import { userLogin } from '../../action/user/user_action';
 
 
 

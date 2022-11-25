@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import { useNavigate } from 'react-router';
-import { userAuth } from '../action/user_action';
+import { userAuth } from '../action/user/user_action';
 
 export default function Auth(SpecificComponent, option, adminRoute = null) {
   const dispatch = useDispatch()
