@@ -17,6 +17,7 @@
 
 
 * 회원가입되지 않은 상태로 로그인하기
+
 ![wrong](https://user-images.githubusercontent.com/89136968/203899055-4a9e387c-672d-475a-9f20-2aa148fe2310.gif)
 
 * 로그아웃
