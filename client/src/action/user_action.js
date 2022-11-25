@@ -1,5 +1,5 @@
 import axios from "axios"
-import { USER_LOGIN, USER_REGISTER } from "./user_type"
+import { USER_LOGIN, USER_REGISTER, USER_AUTH } from "./user_type"
 
 
 export const userLogin = (data) => {
@@ -18,6 +18,16 @@ export const userRegister = (data) => {
 
   return {
     type: USER_REGISTER,
+    payload : request
+  }
+}
+
+export const userAuth = () => {
+  const request = axios.get("api/users/auth")
+  .then(response => response.data)
+
+  return {
+    type : USER_AUTH,
     payload : request
   }
 }
