@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const Container = styled("div")`
   display:flex;
@@ -48,6 +49,8 @@ const ButtonBox = styled("div")`
 `;
 
 const Nav = ({handleLogout}) => {
+  const navigate = useNavigate()
+  const isLogged = useSelector((state) => state.userReducer.isLogged)
   return (
     <>
       <Container>
@@ -58,13 +61,18 @@ const Nav = ({handleLogout}) => {
 
           <LinkBox>
             <Button className="home_button">Home</Button>
-            <Button>Blogs</Button>
+            <Button onClick={handleLogout}>Blogs</Button>
           </LinkBox>
         </LogoBox>
 
         <ButtonBox>
-          <Button className="Signin">Signin</Button>
-          <Button>Signup</Button>
+          {isLogged &&
+            isLogged
+            ? <Button className="Signin" onClick={handleLogout}>logout</Button>
+            : <Button className="Signin" onClick={() => navigate("/login")}>Signin</Button>
+          }
+          <Button onClick={() => navigate("/register")} >Signup</Button>
+
         </ButtonBox>
       </Container>
     </>

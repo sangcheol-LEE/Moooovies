@@ -34,9 +34,8 @@ export default MoviePosters;
 
 const TitleBox = styled("div")`
 h2{
-  /* margin: 10px; */
   padding : 0 10px;
-  border-bottom: 1px solid rgba(0,0,0,0.3);
+  border-bottom: 1px solid rgba(0,0,0,0.15);
   padding-bottom : 5px;
 }
 `;

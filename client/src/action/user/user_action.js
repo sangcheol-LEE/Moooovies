@@ -1,5 +1,8 @@
 import axios from "axios"
-import { USER_LOGIN, USER_REGISTER, USER_AUTH } from "./user_type"
+import {USER_LOGIN,
+        USER_REGISTER,
+        USER_AUTH,USER_ISLOGGED,
+       } from "./user_type"
 
 
 export const userLogin = (data) => {
@@ -29,5 +32,12 @@ export const userAuth = () => {
   return {
     type : USER_AUTH,
     payload : request
+  }
+}
+
+export const user_isLogged = () => {
+  return {
+    type: USER_ISLOGGED,
+    payload : true
   }
 }

@@ -1,6 +1,46 @@
 import axios from "axios";
-import { GET_POPULAR_MOVIE } from "./movie_type";
+import { GET_POPULAR_MOVIE,
+         GET_LOAD_MORE,
+         GET_MOVIE_DETAIL,
+         GET_MOVIE_CREW
+        } from "./movie_type";
 import { API_KEY,API_URL } from "../../Config";
+
+
+export const getMovieCrew = (movieId) => {
+  try{
+    const endPointCrew = `${API_URL}/movie/${movieId}/credits?api_key=${API_KEY}`
+    const response = axios.get(endPointCrew)
+    .then((res) => res.data)
+    .then(res => res)
+
+    return {
+      type: GET_MOVIE_CREW,
+      payload : response
+    }
+  }catch(e) {
+    console.log("getMovieCrew", e)
+  }
+
+}
+
+
+export const getMovieDetail = (movieId) => {
+  try {
+    const endPoint = `${API_URL}/movie/${movieId}?api_key=${API_KEY}`
+    const response = axios.get(endPoint)
+    .then((res) => res.data)
+    .then(res => res)
+
+    return {
+      type: GET_MOVIE_DETAIL,
+      payload : response,
+    }
+
+  }catch(e) {
+    console.log("getMovieDetail",e)
+  }
+}
 
 export const getPopularMovie = () => {
   try {
@@ -13,6 +53,22 @@ export const getPopularMovie = () => {
       payload :response
     }
   }catch(e) {
-    console.log(e)
+    console.log("getPopularMovie",e)
+  }
+}
+
+export const getLoadMore = (id) => {
+  try {
+    const endPoint = `${API_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=${id}`
+    console.log("action",id)
+    const response = axios.get(endPoint)
+    .then((response) => response.data)
+    .then(response => response)
+    return {
+      type : GET_LOAD_MORE,
+      payload :response
+    }
+  }catch(e) {
+    console.log("getPopularMovie",e)
   }
 }

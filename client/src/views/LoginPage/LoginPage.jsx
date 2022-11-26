@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Base from '../../components/Styles/Base';
 import {useDispatch} from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { userLogin } from '../../action/user/user_action';
+import { userLogin,user_isLogged } from '../../action/user/user_action';
 
 
 
@@ -60,6 +60,7 @@ const LoginPage = () => {
         .then(response =>  {
           if(response.payload.loginSuccess) {
             navigate("/")
+            dispatch(user_isLogged())
           } else {
             alert("Login Error")
           }

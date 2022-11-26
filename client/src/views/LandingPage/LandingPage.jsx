@@ -1,10 +1,10 @@
-import React,{useState, useEffect, useMemo} from 'react';
+import React,{useState, useEffect, useMemo,useCallback} from 'react';
 import axios from "axios";
 import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Nav from '../../components/NavComponent/Nav';
-import { getPopularMovie } from '../../action/movie/movie_action';
+import { getPopularMovie,getLoadMore} from '../../action/movie/movie_action';
 import MainImage from '../../components/MainComponent/MainImage';
 import MoviePosters from '../../components/MainComponent/MoviePosters';
 
@@ -12,10 +12,10 @@ import MoviePosters from '../../components/MainComponent/MoviePosters';
 const LandingPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [id, setId] = useState(2);
   useEffect(() => {
     dispatch(getPopularMovie())
-  },[])
+  },[dispatch])
 
 
   const handleLogout = () => {
@@ -28,6 +28,10 @@ const LandingPage = () => {
         }
     } )
   }
+  const setLoadMore = useCallback(() => {
+      dispatch(getLoadMore(id))
+      setId(id + 1)
+  },[dispatch,id])
 
   const popularMovies = useSelector((state) => state.movieReducer.popular)
   const mainMovie = useMemo(() => {
@@ -52,6 +56,11 @@ const LandingPage = () => {
         <MainImage mainMovie={mainMovie}/>
 
         <MoviePosters popularMovies={popularMovies}/>
+
+        <LoadMoreContainer>
+          <LoadMore onClick={setLoadMore}>Load More</LoadMore>
+        </LoadMoreContainer>
+
       </MovieContainer>
     </>
   );
@@ -59,5 +68,21 @@ const LandingPage = () => {
 
 export default LandingPage;
 
-const MovieContainer = styled("div")``;
+const MovieContainer = styled("div")`
+`;
 
+const LoadMoreContainer = styled("div")`
+  display:flex;
+  justify-content:center;
+  width:100%;
+
+`;
+const LoadMore = styled("button")`
+  width: 100%;
+  border: none;
+  padding : 20px 50px;
+  color: #000;
+  background: transparent;
+  font-size: 50px;
+  cursor: pointer;
+`;

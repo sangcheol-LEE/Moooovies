@@ -1,1 +1,7 @@
-export const GET_POPULAR_MOVIE = "GET_POPULAR_MOVIE"
+export const GET_POPULAR_MOVIE = "GET_POPULAR_MOVIE";
+
+export const GET_LOAD_MORE = "GET_LOAD_MORE";
+
+export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL"
+
+export const GET_MOVIE_CREW = "GET_MOVIE_CREW"

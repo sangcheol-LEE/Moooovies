@@ -1,8 +1,10 @@
-import { USER_LOGIN, USER_REGISTER,USER_AUTH } from "../action/user/user_type"
+import { USER_LOGIN, USER_REGISTER,USER_AUTH,USER_ISLOGGED } from "../action/user/user_type"
 
 const initialState = {
   email : "",
-  password: ""
+  password: "",
+  isLogged: false
+
 }
 
 const userReducer = (state = initialState, action) => {
@@ -28,7 +30,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         userData : action.payload
       }
-
+    case USER_ISLOGGED :
+      return {
+        ...state,
+        isLogged: action.payload
+      }
     default :
       return state
   }
