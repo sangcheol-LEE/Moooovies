@@ -14,14 +14,15 @@ app.use(bodyParser.urlencoded({extended: true})); // 바디파서에 옵션을 �
 // 아래 코드는 application/json 형식의 데이터를 읽는다.
 app.use(bodyParser.json());
 app.use(cookieParser());
+// app.use("/api/users", require("./"))
+app.use("/api/favorite", require("./routes/favorite"))
+
 
 const mongoose = require("mongoose");
 mongoose.connect(config.mongoURI, {
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => console.log("monggoDB Connected...."))
   .catch(err => console.log(err))
-
-app.get("/", (request, response) => response.send("Hello World How are you ~? 내 이름은 상철이야"));
 
 app.get("/api/hello", (request, response) => {
   response.send("안녕하세용 ㅎㅎㅎ ")
@@ -85,7 +86,6 @@ app.get("/api/users/auth", auth ,(request, response) => {
     image : request.user.image
   })
 })
-
 app.get("/api/users/logout", auth, (request, response) => {
   User.findOneAndUpdate({_id: request.user._id},
     {token : ""}

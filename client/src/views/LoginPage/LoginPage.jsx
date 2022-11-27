@@ -59,6 +59,7 @@ const LoginPage = () => {
       dispatch(userLogin(body))
         .then(response =>  {
           if(response.payload.loginSuccess) {
+            window.localStorage.setItem("userId", response.payload.userId)
             navigate("/")
             dispatch(user_isLogged())
           } else {

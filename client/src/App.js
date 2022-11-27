@@ -12,7 +12,7 @@ function App() {
         <Route exact path="/" element={Auth(<LandingPage />, true)}/>
         <Route exact path="/login" element={Auth(<LoginPage />, false)}/>
         <Route exact path="/register" element={Auth(<RegisterPage />, null)}/>
-        <Route exact path="/movie/:id" element={Auth(<MovieDetail/>, null)} />
+        <Route exact path="/movie/:id" element={Auth(<MovieDetail/>, true)} />
       </Routes>
   );
 }

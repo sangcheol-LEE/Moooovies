@@ -22,6 +22,7 @@ const LandingPage = () => {
     axios.get("/api/users/logout")
     .then(response => {
         if(response.data.success) {
+          window.localStorage.removeItem("userId")
           navigate('/login')
         }else {
           alert("로그아웃 실패")

@@ -2,9 +2,27 @@ import axios from "axios";
 import { GET_POPULAR_MOVIE,
          GET_LOAD_MORE,
          GET_MOVIE_DETAIL,
-         GET_MOVIE_CREW
+         GET_MOVIE_CREW,
+         POST_FAVORITE_COUNT,
+         POST_FAVORITED
         } from "./movie_type";
 import { API_KEY,API_URL } from "../../Config";
+
+
+export const getUserFavoriteCount = (favoriteNumber) => {
+  return {
+    type: POST_FAVORITE_COUNT,
+    payload : favoriteNumber
+  }
+}
+
+export const getFavorited = (favorited) => {
+  return {
+    type : POST_FAVORITED,
+    payload : favorited
+  }
+}
+
 
 
 export const getMovieCrew = (movieId) => {
@@ -30,7 +48,9 @@ export const getMovieDetail = (movieId) => {
     const endPoint = `${API_URL}/movie/${movieId}?api_key=${API_KEY}`
     const response = axios.get(endPoint)
     .then((res) => res.data)
-    .then(res => res)
+    .then(res => {
+      return res
+    })
 
     return {
       type: GET_MOVIE_DETAIL,

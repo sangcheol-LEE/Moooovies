@@ -68,10 +68,13 @@ const Nav = ({handleLogout}) => {
         <ButtonBox>
           {isLogged &&
             isLogged
-            ? <Button className="Signin" onClick={handleLogout}>logout</Button>
-            : <Button className="Signin" onClick={() => navigate("/login")}>Signin</Button>
+            ? <Button onClick={handleLogout}>logout</Button>
+            : <>
+                <Button className="Signin" onClick={() => navigate("/login")}>Signin</Button>
+                <Button onClick={() => navigate("/register")} >Signup</Button>
+              </>
           }
-          <Button onClick={() => navigate("/register")} >Signup</Button>
+
 
         </ButtonBox>
       </Container>
