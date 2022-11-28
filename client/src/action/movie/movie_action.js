@@ -4,10 +4,30 @@ import { GET_POPULAR_MOVIE,
          GET_MOVIE_DETAIL,
          GET_MOVIE_CREW,
          POST_FAVORITE_COUNT,
-         POST_FAVORITED
+         POST_FAVORITED,
+         CHANGE_FAVORITE_COUNT_UP,
+         CHANGE_FAVORITE_COUNT_DOWN,
+         IS_FAVORITED
         } from "./movie_type";
 import { API_KEY,API_URL } from "../../Config";
 
+export const isFavorited = () => {
+  return {
+    type: IS_FAVORITED
+  }
+}
+
+export const favoriteCountUp = () => {
+  return {
+    type : CHANGE_FAVORITE_COUNT_UP,
+  }
+}
+
+export const favoriteCountDown = () => {
+  return {
+    type : CHANGE_FAVORITE_COUNT_DOWN,
+  }
+}
 
 export const getUserFavoriteCount = (favoriteNumber) => {
   return {
@@ -41,7 +61,6 @@ export const getMovieCrew = (movieId) => {
   }
 
 }
-
 
 export const getMovieDetail = (movieId) => {
   try {

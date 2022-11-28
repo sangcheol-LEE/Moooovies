@@ -3,7 +3,10 @@ import { GET_POPULAR_MOVIE,
          GET_MOVIE_DETAIL,
          GET_MOVIE_CREW,
          POST_FAVORITE_COUNT,
-         POST_FAVORITED
+         POST_FAVORITED,
+         CHANGE_FAVORITE_COUNT_UP,
+         CHANGE_FAVORITE_COUNT_DOWN,
+         IS_FAVORITED
         } from "../action/movie/movie_type"
 
 const initialState = {
@@ -13,6 +16,25 @@ const initialState = {
 
 const movieReducer = (state = initialState, action) => {
   switch(action.type) {
+
+    case IS_FAVORITED :
+      return {
+        ...state,
+        favorited: !state.favorited
+      }
+
+    case CHANGE_FAVORITE_COUNT_UP :
+      return {
+        ...state,
+        favoriteCount  : state.favoriteCount + 1
+      }
+
+    case CHANGE_FAVORITE_COUNT_DOWN :
+      return {
+        ...state,
+        favoriteCount  : state.favoriteCount - 1
+      }
+
 
     case POST_FAVORITED :
       return {
