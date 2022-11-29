@@ -1,7 +1,8 @@
-import React from 'react';
+import React,{useCallback, } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const Container = styled("div")`
   display:flex;
@@ -48,9 +49,22 @@ const ButtonBox = styled("div")`
   }
 `;
 
-const Nav = ({handleLogout}) => {
+
+const Nav = () => {
   const navigate = useNavigate()
   const isLogged = useSelector((state) => state.userReducer.isLogged)
+
+  const handleLogout = useCallback(() => {
+    axios.get("/api/users/logout")
+    .then(response => {
+        if(response.data.success) {
+          navigate('/login')
+        }else {
+          alert("로그아웃 실패")
+        }
+    })
+  },[navigate])
+
   return (
     <>
       <Container>
@@ -61,7 +75,9 @@ const Nav = ({handleLogout}) => {
 
           <LinkBox>
             <Button className="home_button">Home</Button>
-            <Button onClick={handleLogout}>Blogs</Button>
+            <Button className="home_button" onClick={() => navigate("/favorite")}>Blogs</Button>
+            <Button onClick={handleLogout}>exits</Button>
+
           </LinkBox>
         </LogoBox>
 

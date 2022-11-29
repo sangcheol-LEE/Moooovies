@@ -17,18 +17,6 @@ const LandingPage = () => {
     dispatch(getPopularMovie())
   },[dispatch])
 
-
-  const handleLogout = () => {
-    axios.get("/api/users/logout")
-    .then(response => {
-        if(response.data.success) {
-          window.localStorage.removeItem("userId")
-          navigate('/login')
-        }else {
-          alert("로그아웃 실패")
-        }
-    } )
-  }
   const setLoadMore = useCallback(() => {
       dispatch(getLoadMore(id))
       setId(id + 1)
@@ -52,7 +40,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <Nav handleLogout={handleLogout}/>
+      <Nav/>
       <MovieContainer>
         <MainImage mainMovie={mainMovie}/>
 
