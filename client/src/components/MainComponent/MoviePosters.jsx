@@ -16,7 +16,7 @@ const MoviePosters = ({popularMovies}) => {
         <h2 style={{color:"green"}}> 최근 개봉작 </h2>
       </TitleBox>
 
-      <PosterContainer>
+      <PosterContainer style={{cursor:"pointer"}}>
         {
           popularMovies && popularMovies.map((poster, idx) => {
             return (

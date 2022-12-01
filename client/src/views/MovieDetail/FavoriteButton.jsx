@@ -1,8 +1,9 @@
-import React,{useState,useEffect,useCallback, useMemo} from 'react';
+import React,{useEffect,useCallback, useMemo} from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from "react-redux"
 import {getUserFavoriteCount, getFavorited,isFavorited,favoriteCountDown,favoriteCountUp} from "../../action/movie/movie_action"
 import axios from 'axios';
+import {FaRegThumbsUp,FaRegThumbsDown} from "react-icons/fa"
 
 const FavoriteButton = ({movieId,movieDetail}) => {
   const dispatch = useDispatch()
@@ -78,8 +79,8 @@ const FavoriteButton = ({movieId,movieDetail}) => {
 
 
   return (
-    <GetUserFavorite>
-      <button onClick={toggleFavoriteButton} >{favorited ? "좋아요 취소" : "좋아요"} {favoriteCount} </button>
+    <GetUserFavorite >
+      <button onClick={toggleFavoriteButton}>{favorited ?  <FaRegThumbsUp style={{color: "blue"}}/> :<FaRegThumbsDown style={{color : "red"}}/> } {favoriteCount} </button>
     </GetUserFavorite>
   );
 };
@@ -91,9 +92,14 @@ const GetUserFavorite = styled("div")`
   display : flex;
   justify-content: flex-end;
   button {
-    border: 1 px solid green;
+    font-size : 25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border: none;
     background-color:transparent;
     padding : 5px;
+    cursor: pointer;
   }
 `;
 

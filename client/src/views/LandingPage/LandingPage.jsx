@@ -1,7 +1,5 @@
-import React,{useState, useEffect, useMemo,useCallback} from 'react';
-import axios from "axios";
+import React,{useState, useEffect,useRef,useMemo,useCallback} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Nav from '../../components/NavComponent/Nav';
 import { getPopularMovie,getLoadMore} from '../../action/movie/movie_action';
@@ -10,12 +8,25 @@ import MoviePosters from '../../components/MainComponent/MoviePosters';
 
 
 const LandingPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [id, setId] = useState(2);
+  const [count, setCount] = useState(0)
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    setInterval(() => {
+      if(countRef.current === 21) return setCount((countRef.current = 0))
+        setCount((countRef.current += 1))
+      }, 3000);
+    return () => {
+      setCount(countRef.current = 0)
+    }
+  },[])
+
   useEffect(() => {
     dispatch(getPopularMovie())
   },[dispatch])
+
 
   const setLoadMore = useCallback(() => {
       dispatch(getLoadMore(id))
@@ -26,13 +37,13 @@ const LandingPage = () => {
   const mainMovie = useMemo(() => {
     const ex = {};
     if(popularMovies) {
-      const first = popularMovies[0];
+      const first = popularMovies[count];
       ex.backdrop_path = first?.backdrop_path;
       ex.title = first?.title;
       ex.overview = first?.overview;
     }
     return ex ? ex : {}
-  },[popularMovies])
+  },[popularMovies,count])
 
   // relative와 absolute는 부모자식 간에 해상도에 맞게 고정되어 움직임.. 참고하도록
 

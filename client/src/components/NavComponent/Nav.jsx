@@ -23,6 +23,7 @@ const LogoContainer = styled("div")`
   margin-right : 100px;
   h3{
     color: green;
+    cursor: pointer;
   }
 `;
 const LinkBox  = styled("div")`
@@ -37,6 +38,7 @@ const Button = styled("button")`
   border: none;
   background-color: transparent;
   color : rgba(0,0,0,0.3);
+  cursor: pointer;
 `;
 
 const ButtonBox = styled("div")`
@@ -70,13 +72,12 @@ const Nav = () => {
       <Container>
         <LogoBox>
           <LogoContainer>
-            <h3>IanFlix</h3>
+            <h3 onClick={() => navigate("/")}>IanFlix</h3>
           </LogoContainer>
 
           <LinkBox>
-            <Button className="home_button">Home</Button>
             <Button className="home_button" onClick={() => navigate("/favorite")}>Blogs</Button>
-            <Button onClick={handleLogout}>exits</Button>
+            <Button onClick={handleLogout}>Temp</Button>
 
           </LinkBox>
         </LogoBox>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useMemo} from 'react';
 import styled from 'styled-components';
 import Nav from '../../components/NavComponent/Nav';
 import axios from 'axios';
@@ -50,11 +50,18 @@ const FavoritePage = () => {
       <div style={{display:"grid", gridTemplateColumns:"repeat(3,1fr)"}}>
         {
           favorites && favorites.map((item, idx) => {
+            const createDay = new Date(item.createdAt)
+            const getDate = {
+              year : createDay.getFullYear(),
+              month : createDay.getMonth() + 1,
+              date: createDay.getDate()
+            }
+            const {year, month, date} = getDate
             return (
-              <div key={idx} style={{display: "flex", position:"relative", marginBottom:"15px"}}>
-                <img src={`${IMAGE_BASE_URL}w300${item.moviePost}`} alt="poster" />
-                <div style={{position:"absolute", bottom:"5px" , left: "5px", color : "#fff"}}>{`개봉일 : ${item.createdAt}`}</div>
-                <button onClick={() => handleDelete(item.movieId, window.localStorage.getItem("userId"))}style={{border:"1px solid rgba(0,0,0,0.3)", backgroundColor:'transparent'}}>Remove</button>
+              <div key={idx} style={style}>
+                <img src={`${IMAGE_BASE_URL}w300${item.moviePost}`} alt="poster"/>
+                <div style={{position:"absolute", bottom:"40px" , left: "5px", color : "#fff"}}>{`개봉일 : ${year}년 ${month}월 ${date}일`}</div>
+                <button onClick={() => handleDelete(item.movieId, window.localStorage.getItem("userId"))}style={{border:"none", backgroundColor:'transparent', padding: "10px"}}>Remove</button>
               </div>
             )
           })
@@ -66,6 +73,15 @@ const FavoritePage = () => {
 };
 
 export default FavoritePage;
+
+const style = {
+  border: "1px solid black",
+  display: "flex",
+  flexDirection : "column",
+  marginRight: "15px",
+  position:"relative",
+  marginBottom:"15px",
+}
 
 const Base = styled("div")`
 
