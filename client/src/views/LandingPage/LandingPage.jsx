@@ -15,8 +15,9 @@ const LandingPage = () => {
 
   useEffect(() => {
     setInterval(() => {
-      if(countRef.current === 21) return setCount((countRef.current = 0))
-        setCount((countRef.current += 1))
+      console.log(countRef.current)
+      if(countRef.current === 20) return setCount(countRef.current = 0)
+        setCount((++countRef.current))
       }, 3000);
     return () => {
       setCount(countRef.current = 0)
