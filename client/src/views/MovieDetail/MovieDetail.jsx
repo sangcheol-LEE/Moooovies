@@ -11,10 +11,15 @@ import FavoriteButton from './FavoriteButton';
 const MovieDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
-  const [toggleMovieCrew, setToggleMovieCrew] = useState(false)
+  const [toggleMovieCrew, setToggleMovieCrew] = useState(false);
+
   useEffect(() => {
-    dispatch(getMovieDetail(params.id))
-    dispatch(getMovieCrew(params.id))
+    try{
+      dispatch(getMovieDetail(params.id))
+      dispatch(getMovieCrew(params.id))
+    }catch(e){
+      console.log("MovieDetail")
+    }
   },[dispatch,params])
 
   const detail = useSelector(state => state.movieReducer);

@@ -56,7 +56,8 @@ const LoginPage = () => {
         password : info.password
       }
 
-      dispatch(userLogin(body))
+      try{
+        dispatch(userLogin(body))
         .then(response =>  {
           if(response.payload.loginSuccess) {
             window.localStorage.setItem("userId", response.payload.userId)
@@ -67,19 +68,27 @@ const LoginPage = () => {
           }
         })
 
-      setInfo({
-        ...info,
-        email : "",
-        password : ""
-      })
+        setInfo({
+          ...info,
+          email : "",
+          password : ""
+        })
+      }catch(e) {
+        console.log("handleSubmit",e)
+      }
   }
 
   const handleChange = (e) => {
-    const prev = {
-      ...info,
-      [e.target.name] : e.target.value
+    try{
+      const prev = {
+        ...info,
+        [e.target.name] : e.target.value
+      }
+      setInfo(prev)
+    }catch(e) {
+      console.log("handleChange",e)
     }
-    setInfo(prev)
+
   }
 
   return (

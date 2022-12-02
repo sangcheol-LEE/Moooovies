@@ -9,18 +9,26 @@ const FavoritePage = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    fetchFavorMovie()
+    try{
+      fetchFavorMovie()
+    }catch(e){
+      console.log(e)
+    }
   }, [])
 
   const fetchFavorMovie = ()=> {
-    axios.post('api/favorite/getFavoritedMovie', {userId : localStorage.getItem("userId")})
-    .then(response => {
-      if(response.data.success) {
-        setFavorites(response.data.favorites)
-      } else {
-        alert ("영화정보를 가져오는데 실패했습니다.")
-      }
-    })
+    try{
+      axios.post('api/favorite/getFavoritedMovie', {userId : localStorage.getItem("userId")})
+      .then(response => {
+        if(response.data.success) {
+          setFavorites(response.data.favorites)
+        } else {
+          alert ("영화정보를 가져오는데 실패했습니다.")
+        }
+      })
+    }catch(e) {
+      console.log("fetchFavorMovie",e)
+    }
   }
 
   const handleDelete = (movieId , userId) => {
@@ -28,15 +36,18 @@ const FavoritePage = () => {
       movieId,
       userId
     }
-
-    axios.post("/api/favorite/removeFromFavorite", variable)
-    .then(response => {
-      if(response.data.success) {
-        fetchFavorMovie()
-      }else {
-        alert("리스트에서 지우는데 실파했습니다아아아아아아아!!")
-      }
-    })
+    try {
+      axios.post("/api/favorite/removeFromFavorite", variable)
+      .then(response => {
+        if(response.data.success) {
+          fetchFavorMovie()
+        }else {
+          alert("리스트에서 지우는데 실파했습니다아아아아아아아!!")
+        }
+      })
+    }catch(e) {
+      console.log("handleDelete",e)
+    }
   }
 
   console.log("favorites",favorites)

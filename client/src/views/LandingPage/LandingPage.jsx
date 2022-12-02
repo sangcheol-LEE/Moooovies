@@ -14,11 +14,14 @@ const LandingPage = () => {
   const countRef = useRef(0);
 
   useEffect(() => {
-    setInterval(() => {
-      console.log(countRef.current)
-      if(countRef.current === 20) return setCount(countRef.current = 0)
-        setCount((++countRef.current))
-      }, 3000);
+    try {
+      setInterval(() => {
+        if(countRef.current === 20) return setCount(countRef.current = 0)
+          setCount((++countRef.current))
+        }, 3000);
+    }catch(e) {
+      console.log(e)
+    }
     return () => {
       setCount(countRef.current = 0)
     }
@@ -30,8 +33,12 @@ const LandingPage = () => {
 
 
   const setLoadMore = useCallback(() => {
+    try{
       dispatch(getLoadMore(id))
       setId(id + 1)
+    }catch(e) {
+      console.log("setLoadMore",e)
+    }
   },[dispatch,id])
 
   const popularMovies = useSelector((state) => state.movieReducer.popular)

@@ -57,14 +57,18 @@ const Nav = () => {
   const isLogged = useSelector((state) => state.userReducer.isLogged)
 
   const handleLogout = useCallback(() => {
-    axios.get("/api/users/logout")
-    .then(response => {
-        if(response.data.success) {
-          navigate('/login')
-        }else {
-          alert("로그아웃 실패")
-        }
-    })
+    try{
+      axios.get("/api/users/logout")
+      .then(response => {
+          if(response.data.success) {
+            navigate('/login')
+          }else {
+            alert("로그아웃 실패")
+          }
+      })
+    }catch(e){
+      console.log("handleLogout",e)
+    }
   },[navigate])
 
   return (
